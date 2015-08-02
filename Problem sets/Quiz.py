@@ -2,7 +2,7 @@
 """
 Created on Fri Jul 10 15:03:00 2015
 
-@author: nncanepa
+@author: Nicolas Canepa
 """
 
 def myLog(x, b):
