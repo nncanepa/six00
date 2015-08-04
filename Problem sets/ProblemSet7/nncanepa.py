@@ -34,7 +34,23 @@ class NewsStory(object):
         return self.link
         
 class WordTrigger(Trigger):
-    def __init__(self, text, trigger):
+    def __init__(self, word):
+        self.word = word
+    
+    def removeSymbols(self,text):
+        for char in string.punctuation:
+            text = text.replace(char, ' ')
+        return text
+    
+    def isWordIn(self,text):
+        text=self.removeSymbols(text.lower())
+        for word in text.split():
+            if self.word in text:
+                return True
+            else:
+                return False
+        
+    
         
     raise NotImplementedError
     
