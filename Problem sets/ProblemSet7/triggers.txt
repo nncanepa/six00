@@ -4,10 +4,10 @@
 # Problem 11: 
 
 # subject trigger named t1
-t1 SUBJECT world
+t1 SUBJECT shots
 
 # title trigger named t2
-t2 TITLE Intel
+t2 TITLE shots
 
 # phrase trigger named t3
 t3 PHRASE New York City
@@ -16,5 +16,5 @@ t3 PHRASE New York City
 t4 AND t2 t3
 
 # the trigger set contains t1 and t4
-ADD t1 t4
+ADD t1 t4 t2
 

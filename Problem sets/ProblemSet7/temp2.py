@@ -94,28 +94,21 @@ def makeTrigger(triggerMap, triggerType, params, name):
     """
     # TODO: Problem 11
     if triggerType == 'PHRASE':
-        trig = PhraseTrigger(' '.join(params))
-        triggerMap[name] = trig
+        triggerMap[name] = PhraseTrigger(' '.join(params))
     elif triggerType == 'AND':
-        trig = AndTrigger(params[0], params[1])
-        triggerMap[name] = trig
+        triggerMap[name] = AndTrigger(triggerMap[params[0]], triggerMap[params[1]])
     elif triggerType == 'OR':
-        trig = OrTrigger(params[0], params[1])
-        triggerMap[name] = trig
+        triggerMap[name] = OrTrigger(triggerMap[params[0], triggerMap[params[1]])
     elif triggerType == 'NOT':
-        trig = NotTrigger(params[0])
-        triggerMap[name] = trig
+        triggerMap[name]  = NotTrigger(params[0])
     elif triggerType == 'SUBJECT':
-        trig = SubjectTrigger(params[0])
-        triggerMap[name] = trig
+        triggerMap[name]  = SubjectTrigger(params[0])
     elif triggerType == 'SUMMARY':
-        trig = SummaryTrigger(params[0])
-        triggerMap[name] = trig
+        triggerMap[name]  = SummaryTrigger(params[0])
     elif triggerType == 'TITLE':
-        trig = TitleTrigger(params[0])
-        triggerMap[name] = trig
+        triggerMap[name]  = TitleTrigger(params[0])
             
-    return trig
+    return triggerMap[name]
     
 #    Trigger file:
 #t1 TITLE Manitoba
