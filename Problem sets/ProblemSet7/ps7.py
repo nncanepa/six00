@@ -200,20 +200,28 @@ def makeTrigger(triggerMap, triggerType, params, name):
     """
     # TODO: Problem 11
     if triggerType == 'PHRASE':
-        name = PhraseTrigger(' '.join(params))
-        triggerMap[name] = name
+        trig = PhraseTrigger(' '.join(params))
+        triggerMap[name] = trig
     elif triggerType == 'AND':
-        name = AndTrigger(params[0], params[1])
-        triggerMap[name] = name
+        trig = AndTrigger(params[0], params[1])
+        triggerMap[name] = trig
     elif triggerType == 'OR':
-        name = OrTrigger(params[0],params[1])
-        triggerMap[name] = name
-    else:
-        name = triggerType(params[0])
-        triggerMap[name] = name
+        trig = OrTrigger(params[0], params[1])
+        triggerMap[name] = trig
+    elif triggerType == 'NOT':
+        trig = NotTrigger(params[0])
+        triggerMap[name] = trig
+    elif triggerType == 'SUBJECT':
+        trig = SubjectTrigger(params[0])
+        triggerMap[name] = trig
+    elif triggerType == 'SUMMARY':
+        trig = SummaryTrigger(params[0])
+        triggerMap[name] = trig
+    elif triggerType == 'TITLE':
+        trig = TitleTrigger(params[0])
+        triggerMap[name] = trig
             
-    return name
-    
+    return trig
 
 
 def readTriggerConfig(filename):
