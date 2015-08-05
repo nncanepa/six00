@@ -100,13 +100,11 @@ class WordTrigger(Trigger):
         for char in string.punctuation:
             text = text.replace(char, ' ')
         return text
-    
-                
+              
     def isWordIn(self,text):
         text=self.removeSymbols(text.lower())
         return self.word in text.split()
 
-# TODO: TitleTrigger
 class TitleTrigger(WordTrigger):
     def evaluate(self,text):
         return self.isWordIn(text.getTitle())
@@ -118,10 +116,6 @@ class SubjectTrigger(WordTrigger):
 class SummaryTrigger(WordTrigger):
     def evaluate(self,text):
         return self.isWordIn(text.getSummary())
-        
-# TODO: SubjectTrigger
-# TODO: SummaryTrigger
-
 
 # Composite Triggers
 # Problems 6-8
@@ -130,16 +124,32 @@ class SummaryTrigger(WordTrigger):
 # TODO: AndTrigger
 # TODO: OrTrigger
 class NotTrigger(Trigger):
-    raise NotImplementedError
+    def __init__(self,T):
+        self.T = T
+    def evaluate(self,x):
+        return not(self.T.evaluate(x))
+        
+        
     
 class AndTrigger(Trigger):
-    raise NotImplementedError
+    def __init__(self,t1,t2):
+        self.t1 = t1
+        self.t2 = t2
+    def evaluate(self,x):
+        return(self.t1.evaluate(x) and self.t2.evaluate(x))
     
 class OrTrigger(Trigger):
-    raise NotImplementedError
+   def __init__(self,t1,t2):
+       self.t1 = t1
+       self.t2 = t2
+   def evaluate(self,x):
+       return (self.t1.evaluate(x) or self.t2.evaluate(x))
     
 class PhraseTrigger(Trigger):
-    raise NotImplementedError
+    def __init__(self,phrase):
+        self.phrase = phrase
+    def evaluate(self,x):
+        return (self.phrase in x.getTitle()) or (self.phrase in x.getSubject()) or (self.phrase in x.getSummary())
 
 # Phrase Trigger
 # Question 9
@@ -160,6 +170,12 @@ def filterStories(stories, triggerlist):
     """
     # TODO: Problem 10
     # This is a placeholder (we're just returning all the stories, with no filtering) 
+    temp = set()
+    for st in stories:
+        for tr in triggerlist:
+            if tr.evaluate(st):
+                temp.add(st)
+    stories = list(temp)
     return stories
 
 #======================
