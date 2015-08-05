@@ -199,6 +199,9 @@ def makeTrigger(triggerMap, triggerType, params, name):
     Returns a new instance of a trigger (ex: TitleTrigger, AndTrigger).
     """
     # TODO: Problem 11
+    name = triggerType(params)
+    triggerMap[srt(name)] = name
+    
 
 
 def readTriggerConfig(filename):
