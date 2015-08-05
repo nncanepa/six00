@@ -29,22 +29,61 @@ s='Microsoft recently released the Windows 8 Consumer Preview.'
 #        
 #print found
 
-
+class NewsStory(object):
+    """
+        Carga una noticia:
+            NewsStory(GUID, Title, Subject, Summary, Link)
+    """
+    def __init__(self, guid, title, subject, summary, link):
+        self.guid = guid
+        self.title = title
+        self.subject = subject
+        self.summary = summary
+        self.link = link
+    def getGuid(self):
+        return self.guid
+        
+    def getTitle(self):
+        return self.title
+        
+    def getSubject(self):
+        return self.subject
+        
+    def getSummary(self):
+        return self.summary
+        
+    def getLink(self):
+        return self.link
 
         
 class WordTrigger(object):
     def __init__(self, word):
-        self.word = word
+        self.word = word.lower()
     
     def removeSymbols(self,text):
         for char in string.punctuation:
             text = text.replace(char, ' ')
         return text
     
+#    def isWordIn(self,text):
+#        text=self.removeSymbols(text.lower())
+#        for word in text.split():
+#            if self.word in text:
+#                return True
+#            else:
+#                return False
     def isWordIn(self,text):
         text=self.removeSymbols(text.lower())
-        for word in text.split():
-            if self.word in text:
-                return True
-            else:
-                return False
+        word in text.split()
+        
+class TitleTrigger(WordTrigger):
+    def evaluate(self,text):
+        return self.isWordIn(text.getTitle())
+        
+class SubjectTrigger(WordTrigger):
+    def evaluate(self,text):
+        self.isWordIn(text.getSubject())
+
+class SummaryTrigger(WordTrigger):
+    def evaluate(self,text):
+        self.isWordIn(text.getSummary())

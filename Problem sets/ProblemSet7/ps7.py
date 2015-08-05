@@ -47,6 +47,31 @@ def process(url):
 # Problem 1
 
 # TODO: NewsStory
+class NewsStory(object):
+    """
+        Carga una noticia:
+            NewsStory(GUID, Title, Subject, Summary, Link)
+    """
+    def __init__(self, guid, title, subject, summary, link):
+        self.guid = guid
+        self.title = title
+        self.subject = subject
+        self.summary = summary
+        self.link = link
+    def getGuid(self):
+        return self.guid
+        
+    def getTitle(self):
+        return self.title
+        
+    def getSubject(self):
+        return self.subject
+        
+    def getSummary(self):
+        return self.summary
+        
+    def getLink(self):
+        return self.link
 
 #======================
 # Part 2
@@ -66,7 +91,34 @@ class Trigger(object):
 
 # TODO: WordTrigger
 
+        
+class WordTrigger(Trigger):
+    def __init__(self, word):
+        self.word = word.lower()
+    
+    def removeSymbols(self,text):
+        for char in string.punctuation:
+            text = text.replace(char, ' ')
+        return text
+    
+                
+    def isWordIn(self,text):
+        text=self.removeSymbols(text.lower())
+        return self.word in text.split()
+
 # TODO: TitleTrigger
+class TitleTrigger(WordTrigger):
+    def evaluate(self,text):
+        return self.isWordIn(text.getTitle())
+        
+class SubjectTrigger(WordTrigger):
+    def evaluate(self,text):
+        return self.isWordIn(text.getSubject())
+
+class SummaryTrigger(WordTrigger):
+    def evaluate(self,text):
+        return self.isWordIn(text.getSummary())
+        
 # TODO: SubjectTrigger
 # TODO: SummaryTrigger
 
@@ -77,7 +129,17 @@ class Trigger(object):
 # TODO: NotTrigger
 # TODO: AndTrigger
 # TODO: OrTrigger
-
+class NotTrigger(Trigger):
+    raise NotImplementedError
+    
+class AndTrigger(Trigger):
+    raise NotImplementedError
+    
+class OrTrigger(Trigger):
+    raise NotImplementedError
+    
+class PhraseTrigger(Trigger):
+    raise NotImplementedError
 
 # Phrase Trigger
 # Question 9

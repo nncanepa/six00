@@ -35,7 +35,7 @@ class NewsStory(object):
         
 class WordTrigger(Trigger):
     def __init__(self, word):
-        self.word = word
+        self.word = word.lower()
     
     def removeSymbols(self,text):
         for char in string.punctuation:
@@ -50,28 +50,7 @@ class WordTrigger(Trigger):
             else:
                 return False
         
-    
-        
-    raise NotImplementedError
-    
-class TitleTrigger(WordTrigger):
-    raise NotImplementedError
-    
-class SubjectTrigger(WordTrigger):
-    raise NotImplementedError
-    
-class SummaryTrigger(WordTrigger):
-    raise NotImplementedError
 
-class NotTrigger(Trigger):
-    raise NotImplementedError
-    
-class AndTrigger(Trigger):
-    raise NotImplementedError
-    
-class OrTrigger(Trigger):
-    raise NotImplementedError
-    
-class PhraseTrigger(Trigger):
-    raise NotImplementedError
+
+
     
