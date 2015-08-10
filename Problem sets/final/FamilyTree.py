@@ -145,11 +145,22 @@ class Family(object):
         else:
             return (3, 2)
         
-    def commonAncestor(self, a, b):
-        if self.names_to_nodes[a].get_parent() == self.names_to_nodes[b].get_parent():
-            return self.names_to_nodes[a]
+    def distanceToRoot(self, a):
+        node = self.names_to_nodes[a]
+        if node == self.root:
+            return [node]
         else:
-            return self.commonAncestor(self.names_to_nodes[a].get_parent(), self.names_to_nodes[b].get_parent())
+            return [node] + self.distanceToRoot(node.get_parent().name)
+#         
+#    def degreeType(self, a, b):
+#        l=[]
+#        a1=self.distanceToRoot(a)
+#        b1=self.distanceToRoot(b)
+#        for i in range(len(a1)-1,-1, -1):
+#            for j in range(len(b1)-1,-1, -1):
+                
+        
+            
         
         
         #raise NotImplementedError()
