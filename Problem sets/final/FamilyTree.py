@@ -131,26 +131,69 @@ class Family(object):
           The absolute value of the difference between the 
           distance from each node to their common ancestor.
         """
-        
+        cousin = 0
+        degree = 0
+        ca = self.commonAncestor(self.distanceToRoot(a), self.distanceToRoot(b))
         if a == b:
             return (-1, 0)
         elif self.names_to_nodes[a].is_parent(a) or self.names_to_nodes[a].is_parent(b):
             return (-1, 1)
         elif self.names_to_nodes[a].get_parent() == self.names_to_nodes[b].get_parent():
             return (0, 0)
-        elif self.names_to_nodes[a] == self.root:
-            return (2, 2)
-        elif self.names_to_nodes[b] == self.root:
-            return (2, 2)
+        elif ca == 'non-cousin':
+            return (-1, abs(len(self.distanceToRoot(a)) - len(self.distanceToRoot(b))))
         else:
-            return (3, 2)
+#            ca = self.commonAncestor(self.distanceToRoot(a) ,self.distanceToRoot(b))
+            degree = abs(len(self.distanceToNode(a ,ca.name)) - len(self.distanceToNode(b, ca.name)))
+            if len(self.distanceToNode(a, ca.name)) < len(self.distanceToNode(b, ca.name)):
+                cousin = len(self.distanceToNode(a, ca.name)) - 2
+            else:
+                cousin = len(self.distanceToNode(b, ca.name)) - 2
         
+        return (cousin, degree)
+#       
     def distanceToRoot(self, a):
+        """
+        Returns a list of member objects representing the descent line of nodes
+        i.e: node, parent node, parent of parent node, until it reachs root node
+        """
         node = self.names_to_nodes[a]
         if node == self.root:
             return [node]
         else:
             return [node] + self.distanceToRoot(node.get_parent().name)
+
+    def distanceToNode(self, a, b):
+        """
+        Returns a list of member objects representing the descent line of nodes
+        i.e: node, parent node, parent of parent node, until it reachs root node
+        """
+        nodeA = self.names_to_nodes[a]
+        nodeB = self.names_to_nodes[b]
+        if nodeA == nodeB:
+            return [nodeA]
+        else:
+            return [nodeA] + self.distanceToNode(nodeA.get_parent().name, b)
+            
+    def commonAncestor(self, l1, l2):
+        """
+        Returns member object of common ancestor between to lists representing 
+        the distance to de root (distanceToRoot), and if one node is descendant of
+        the other returns string 'non-cousin'.
+        """
+        result = 0
+        try:
+            l1r=list(reversed(l1))
+            l2r=list(reversed(l2))
+            while True:
+                t1=l1r.pop(0)
+                t2=l2r.pop(0)
+                if t1 == t2:
+                    result = t1
+                else:
+                    return result
+        except:
+            return 'non-cousin'
 #         
 #    def degreeType(self, a, b):
 #        l=[]
