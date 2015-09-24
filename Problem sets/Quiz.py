@@ -3,6 +3,7 @@
 Created on Fri Jul 10 15:03:00 2015
 
 @author: Nicolas Canepa
+MITx 6.00.1x 2015
 """
 
 def myLog(x, b):
